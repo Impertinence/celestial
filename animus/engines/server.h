@@ -73,7 +73,7 @@ class SERVER
 
             //Accept connection and create new thread for tasks
             while(num_thread < MAX_THREADS) {
-                cout << "[CELESTIAL]" << endl;
+                cout << "[CELESTIAL_DAEMON]" << endl;
 
                 conn_fd = accept(listen_fd, (struct sockaddr *) &cli_addr, &cli_addr_len);
 
