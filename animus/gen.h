@@ -4,7 +4,7 @@
 #include <sstream>
 
 //Animus files
-#include "misc_files/hash.h"
+#include "misc_files/hashing.h"
 
 using namespace std;
 
@@ -23,6 +23,9 @@ class GENERATE
             stringstream time_container;
             time_container << raw_time;
             string time = time_container.str();
+
+            //Gen unique node identifier
+            string node_identifier = get_md5(time);
 
 
         };

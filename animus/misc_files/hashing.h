@@ -245,11 +245,15 @@ constexpr md5_type md5(const char (&data)[n]) {
 
 using namespace std;
 
-string gen_md5_hash(string input) {
-    auto hash = ConstexprHashes::md5(input);
-    cout << hex;
+string get_md5(string input) {
+    auto hash = ConstexprHashes::md5("red");
+    
+    stringstream ss;
+
+    ss << hex;
     for (auto i : hash) {
-        cout << (static_cast<int>(i) & 0xff);
+        ss << (static_cast<int>(i) & 0xff);
     }
-    cout << endl;
+
+    return ss.str();
 }

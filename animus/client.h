@@ -19,7 +19,11 @@
 #include <time.h>
 #include <vector>
 
-using namespace std;
+void error(std::string m)
+{
+    std::cout << "[ERR]: " << m << std::endl;
+    exit(EXIT_FAILURE);
+};
 
 class CLIENT
 {
@@ -32,8 +36,15 @@ class CLIENT
         CLIENT(int send_port, int recv_port)
         {
             this -> send_port = send_port;
-            this -> recv_port = recv_port;     
-        };       
+            this -> recv_port = recv_port;
+
+            listen_fd = socket(PF_INET, SOCK_STREAM, 0);
+
+            if(listen_fd < 0)
+            {
+                error("TROUBLE OPENING SFD...");
+            }
+        };
 };
 
 #endif

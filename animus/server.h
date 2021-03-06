@@ -13,13 +13,11 @@
 //Animus dependencies
 #include "client.h"
 
-using namespace std;
-
 static int conn_fd;
 static int MAX_THREADS = 500;
 
 void *task_manager(void *dummyPt) {
-    cout << "[THREAD - " << pthread_self() << "]: NODE CONNECTED...";
+    std::cout << "[THREAD - " << pthread_self() << "]: NODE CONNECTED...";
             
     char test[300];
     bzero(test, 301);
@@ -30,7 +28,7 @@ void *task_manager(void *dummyPt) {
         bzero(test, 301);
         read(conn_fd, test, 300);
 
-        cout << "[THREAD - " << pthread_self() << "]: " << test;
+        std::cout << "[THREAD - " << pthread_self() << "]: " << test;
     }
 }
 
@@ -73,7 +71,7 @@ class SERVER
 
             //Accept connection and create new thread for tasks
             while(num_thread < MAX_THREADS) {
-                cout << "[CELESTIAL_DAEMON]" << endl;
+                std::cout << "[CELESTIAL_DAEMON]" << std::endl;
 
                 conn_fd = accept(listen_fd, (struct sockaddr *) &cli_addr, &cli_addr_len);
 
@@ -91,9 +89,9 @@ class SERVER
         };
 
         //Error message
-        void error(string m, bool exit_status) 
+        void error(std::string m, bool exit_status) 
         {
-            cout << m;
+            std::cout << m;
             if(exit_status)
                 exit(EXIT_FAILURE);
         };

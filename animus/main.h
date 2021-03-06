@@ -9,9 +9,10 @@
 //Animus dependencies
 #include "server.h"
 #include "client.h"
-#include "persistent_storage.h"
+#include "gen.h"
 
-PERSISTENT_STORAGE persistent_storage("");
+//Shard
+#include "../shard/main.h"
 
 using namespace std;
 
@@ -46,6 +47,8 @@ class ANIMUS
             if(op_type.compare("testing") == 0 || op_type.compare("operational") == 0) {
                 error("[ERR] NO OPERATIONAL MODE DEFINED...");
             }
+
+            //Check if node identifiers already initialized
 
             SERVER a_server(send_port, recv_port);
             CLIENT a_client(send_port, recv_port);
