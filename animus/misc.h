@@ -18,13 +18,13 @@ class MISC
 {
     public:
         //Get Local IP of machine
-        string getLocalIP() 
+        string get_local_ip() 
         {
             int sock = socket(PF_INET, SOCK_DGRAM, 0);
             struct sockaddr_in loopback;
 
             if(sock < 0) {
-                error("TROUBLE CREATING SOCKET");
+                error("TROUBLE CREATING SOCKET...");
             }
 
             memset(&loopback, 0, sizeof(loopback));
@@ -36,8 +36,8 @@ class MISC
         };
         
         //Get Public IP of machine
-        string getPublicIP() 
+        string get_public_ip() 
         {
-            
+                
         };
 };

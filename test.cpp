@@ -1,8 +1,11 @@
 #include <iostream>
 
 #include "animus/main.h"
+#include "animus/gen.h";
 
 int main()
 {
-	ANIMUS animus("operational");
-}
+	GENERATE gen;
+
+	gen.gen_node();
+};

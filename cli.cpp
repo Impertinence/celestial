@@ -3,4 +3,9 @@
 //My modules
 #include "animus_cli/main.h"
 
-ANIMUS_CLI a_cli();
+int main() {
+    ANIMUS_CLI a_cli(3);
+
+    //Initailize actual interface
+    a_cli.init();
+}

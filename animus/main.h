@@ -7,8 +7,11 @@
 #include <netinet/in.h>
 
 //Animus dependencies
-#include "engines/server.h"
-#include "engines/client.h"
+#include "server.h"
+#include "client.h"
+#include "persistent_storage.h"
+
+PERSISTENT_STORAGE persistent_storage("");
 
 using namespace std;
 

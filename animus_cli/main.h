@@ -18,18 +18,25 @@
 #include <string>
 #include <time.h>
 #include <vector>
+#include <time.h>
 
 using namespace std;
 
+string version_number = "1.0.1";
+
 class ANIMUS_CLI {
     public:
-        string op_mode;
-
-        ANIMUS_CLI() 
+        ANIMUS_CLI(int p) 
         {
-            //Open configuration file
-            FILE * conf = fopen("config.aconf", "r");
+            //Print Opening Banner
+            cout << "=======================\n";
+            cout << "CELESTIAL VERSION " << version_number << "\n";
+            cout << "=======================";
         };
+
+        void init() {
+
+        }
 };
 
 #endif
