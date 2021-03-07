@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "animus/main.h"
-#include "animus/gen.h"
 
 int main()
 {

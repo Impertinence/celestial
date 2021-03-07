@@ -8,20 +8,17 @@
 
 //Animus dependencies
 #include "server.h"
-#include "client.h"
 #include "gen.h"
 
 //Shard
-#include "../shard/main.h"
+#include "../monolith/main.h"
 
 using namespace std;
 
 class ANIMUS
 {
     public:
-        int send_port;
         int recv_port;
-        
         int op_type;
 
         //Animus constructor
@@ -32,31 +29,28 @@ class ANIMUS
             //Operational mode
             if(op_type.compare("operational") != 0)
             {
-                send_port = 6969;
                 recv_port = 4200;
             } 
             
             //Testing mode
             if(op_type.compare("testing") != 0)
             {
-                send_port = (int) rand() % 63655;
                 recv_port = (int) rand() % 63655;
             }
 
             //No mode specified
             if(op_type.compare("testing") == 0 || op_type.compare("operational") == 0) {
-                error("[ERR] NO OPERATIONAL MODE DEFINED...");
+                error("NO OPERATIONAL MODE DEFINED...");
             }
 
             //Check if node identifiers already initialized
 
-            SERVER a_server(send_port, recv_port);
-            CLIENT a_client(send_port, recv_port);
+            SERVER a_server(recv_port);
         };
 
         //Error
         void error(string m) {
-            cout << m + "\n";
+            cout << "[ERR]: >> " << m << "\n";
             exit(1);
         }
 };

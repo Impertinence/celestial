@@ -4,29 +4,26 @@
 #include <sstream>
 
 //Animus files
-#include "misc_files/hashing.h"
+#include "misc_files/hashing/picoSHA.h"
+
 
 using namespace std;
 
-class GENERATE
+namespace GENERATE
 {
-    public:
-        GENERATE()
-        {
+    void gen_node() {
+        //Get time hash 
+        //why the fuck this so complicated lmfao
+        time_t raw_time = chrono::system_clock::to_time_t(chrono::system_clock::now());
+        stringstream time_container;
+        time_container << raw_time;
+        string time = time_container.str();
 
-        };
+        //Get hash
+        vector<unsigned char> hash(picosha2::k_digest_size);
+        picosha2::hash256(time.begin(), time.end(), hash.begin(), hash.end());
+        string identifier_hash = picosha2::bytes_to_hex_string(hash.begin(), hash.end());
 
-        void gen_node() {
-            //Get time hash 
-            //why the fuck this so complicated lmfao
-            time_t raw_time = chrono::system_clock::to_time_t(chrono::system_clock::now());
-            stringstream time_container;
-            time_container << raw_time;
-            string time = time_container.str();
-
-            //Gen unique node identifier
-            string node_identifier = get_md5(time);
-
-
-        };
+        //Generate a key
+    };
 };

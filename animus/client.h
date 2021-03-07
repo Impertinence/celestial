@@ -21,28 +21,50 @@
 
 void error(std::string m)
 {
-    std::cout << "[ERR]: " << m << std::endl;
-    exit(EXIT_FAILURE);
+    std::cout << "[ERR] >> " << m << std::endl;
 };
 
 class CLIENT
 {
     public:
-        int listen_fd, send_port, recv_port;
+        int listen_fd, srv_port;
         bool loop = false;
         struct sockaddr_in srv_addr;
         struct hostent *srv;
 
-        CLIENT(int send_port, int recv_port)
+        CLIENT(int srv_port, char *srv_ip)
         {
-            this -> send_port = send_port;
-            this -> recv_port = recv_port;
+            this -> srv_port = srv_port;
 
-            listen_fd = socket(PF_INET, SOCK_STREAM, 0);
+            listen_fd = socket(AF_INET, SOCK_STREAM, 0);
 
             if(listen_fd < 0)
             {
                 error("TROUBLE OPENING SFD...");
+                exit(EXIT_FAILURE);
+            }
+
+            srv = gethostbyname(srv_ip);
+
+            if(srv == NULL)
+            {
+                error("TROUBLE CONNECTING TO HOST...");
+                exit(EXIT_FAILURE);
+            }
+
+            bzero((char *) &srv_addr, sizeof(srv_addr));
+            srv_addr.sin_family = AF_INET;
+
+            // bcopy((char *) srv -> h_addr, (char *) &srv_addr.sin_addr.s_addr, (char *) srv -> h_length);
+
+            srv_addr.sin_port = htons(srv_port);
+
+            int checker = connect(listen_fd, (struct sockaddr *) &srv_addr, sizeof(srv_addr));
+
+            if(checker < 0)
+            {
+                error("TROUBLE CONNECTING TO HOST...");
+                exit(EXIT_FAILURE);
             }
         };
 };

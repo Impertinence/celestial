@@ -17,7 +17,7 @@ static int conn_fd;
 static int MAX_THREADS = 500;
 
 void *task_manager(void *dummyPt) {
-    std::cout << "[THREAD - " << pthread_self() << "]: NODE CONNECTED...";
+    std::cout << "[THREAD - " << pthread_self() << "] >> NODE CONNECTED...";
             
     char test[300];
     bzero(test, 301);
@@ -28,7 +28,7 @@ void *task_manager(void *dummyPt) {
         bzero(test, 301);
         read(conn_fd, test, 300);
 
-        std::cout << "[THREAD - " << pthread_self() << "]: " << test;
+        std::cout << "[THREAD - " << pthread_self() << "] >> " << test;
     }
 }
 
@@ -43,13 +43,10 @@ class SERVER
         pthread_t thread[500];
 
         //Server initialization
-        SERVER(int send_port, int recv_port) 
+        SERVER(int recv_port) 
         {
             this -> srv_port = recv_port;
-            this -> send_port = send_port;
-
             CLIENT a_client();
-
             listen_fd = socket(AF_INET, SOCK_STREAM, 0);
 
             bzero((char*) &srv_addr, sizeof(srv_addr));
@@ -59,10 +56,10 @@ class SERVER
 
             //Check listen sfd
             if(listen_fd < 0)
-                error("[ERR] TROUBLE ESTABLISHING SFD...", false);
+                error("[ERR] >> TROUBLE ESTABLISHING SFD...", false);
 
             if(bind(listen_fd, (struct sockaddr *) &srv_addr, sizeof(srv_addr)) < 0)
-                error("[ERR] TROUBLE BINDING SFD...", false);
+                error("[ERR] >> TROUBLE BINDING SFD...", false);
 
             listen(listen_fd, 5);
 
@@ -76,7 +73,7 @@ class SERVER
                 conn_fd = accept(listen_fd, (struct sockaddr *) &cli_addr, &cli_addr_len);
 
                 if(conn_fd < 0) {
-                    error("[ERR] TROUBLE ACCEPTING: ", false);
+                    error("[ERR] TROUBLE ACCEPTING >> ", false);
                 }
 
                 pthread_create(&thread[num_thread], NULL, *task_manager, NULL);
