@@ -24,6 +24,6 @@ namespace GENERATE
         picosha2::hash256(time.begin(), time.end(), hash.begin(), hash.end());
         string identifier_hash = picosha2::bytes_to_hex_string(hash.begin(), hash.end());
 
-        //Generate a key
+        cout << identifier_hash;
     };
 };

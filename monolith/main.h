@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 
+#include "misc/picosha.h"
+
 using namespace std;
 
 string gen_identifier()
@@ -13,7 +15,13 @@ string gen_identifier()
     time_container << raw_time;
     string time = time_container.str();
 
-    //Gen unique identifier and return
+    //Get hash
+    vector<unsigned char> hash(picosha2::k_digest_size);
+    picosha2::hash256(time.begin(), time.end(), hash.begin(), hash.end());
+    string identifier_hash = picosha2::bytes_to_hex_string(hash.begin(), hash.end());
+
+    //Return hash
+    return identifier_hash;
 }
 
 namespace MONOLITH_DB 

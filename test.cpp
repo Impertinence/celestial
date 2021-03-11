@@ -4,7 +4,5 @@
 
 int main()
 {
-	GENERATE gen;
-
-	gen.gen_node();
+	ANIMUS test("operational");
 };
